@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Solat Malaysia</string>
+    <string name="imsak_title">Imsak</string>
+    <string name="subuh_title">Subuh</string>
+    <string name="syuruk_title">Syuruk</string>
+    <string name="zohor_title">Zohor</string>
+    <string name="asar_title">Asar</string>
+    <string name="maghrib_title">Maghrib</string>
+    <string name="isya_title">Isya\'</string>
+</resources>

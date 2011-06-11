@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<TableLayout android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:stretchColumns="1">
+		<TableRow>
+			<TextView android:text="@string/imsak_title" />
+			<TextView android:id="@+id/imsak_time" />
+		</TableRow>
+		<TableRow>
+			<TextView android:text="@string/subuh_title" />
+			<TextView android:id="@+id/subuh_time" />
+		</TableRow>
+		<TableRow>
+			<TextView android:text="@string/syuruk_title" />
+			<TextView android:id="@+id/syuruk_time" />
+		</TableRow>
+		<TableRow>
+			<TextView android:text="@string/zohor_title" />
+			<TextView android:id="@+id/zohor_time" />
+		</TableRow>
+		<TableRow>
+			<TextView android:text="@string/asar_title" />
+			<TextView android:id="@+id/asar_time" />
+		</TableRow>
+		<TableRow>
+			<TextView android:text="@string/maghrib_title" />
+			<TextView android:id="@+id/maghrib_time" />
+		</TableRow>
+		<TableRow>
+			<TextView android:text="@string/isya_title" />
+			<TextView android:id="@+id/isya_time" />
+		</TableRow>
+	</TableLayout>
+</ScrollView>
