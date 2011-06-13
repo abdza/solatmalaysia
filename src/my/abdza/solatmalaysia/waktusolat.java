@@ -38,7 +38,7 @@ public class waktusolat extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		initThreading();
+		initThreading();		
 		findViews();
 		guiThread.post(updatewaktu);
 	}
@@ -72,7 +72,7 @@ public class waktusolat extends Activity {
 	}
 	
 	public void savewaktu(String nama_waktu,String waktu) {
-		getPreferences(MODE_PRIVATE).edit().putString(nama_waktu, waktu).commit();		
+		getPreferences(MODE_PRIVATE).edit().putString(nama_waktu, waktu).commit();
 	}
 
 	public void updatewaktu() {
@@ -87,5 +87,9 @@ public class waktusolat extends Activity {
 				isya_time.setText(getPreferences(MODE_PRIVATE).getString(waktu_isya,"--"));
 			}
 		});
+	}
+	
+	public String getkodkawasan() {
+		return getPreferences(MODE_PRIVATE).getString("kod_kawasan","sgr03");
 	}
 }

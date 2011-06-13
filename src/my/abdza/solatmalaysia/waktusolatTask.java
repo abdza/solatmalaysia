@@ -33,7 +33,7 @@ public class waktusolatTask implements Runnable {
 				throw new InterruptedException();
 			
 			URL url = new URL("http://www.e-solat.gov.my/solat.php?"
-					+ "kod=sgr03" + "&lang=Eng"
+					+ "kod=" + waktu.getkodkawasan() + "&lang=Eng"
 					+ "&url=http://blog.abdullahsolutions.com");
 			con = (HttpURLConnection) url.openConnection();
 			con.setReadTimeout(1000);
@@ -51,12 +51,12 @@ public class waktusolatTask implements Runnable {
 			
 			String payload;
 			String total="";
+			int i=0;
 			while((payload=reader.readLine())!=null){
-				total+=payload;
+				total+=payload;				
 			}			
 			
-			String htmlTextStr = Html.fromHtml(total).toString();
-			
+			String htmlTextStr = Html.fromHtml(total).toString();			
 			Pattern waktupattern = Pattern.compile("(\\d+:\\d+)");			
 			Matcher waktumatch = waktupattern.matcher(htmlTextStr);			
 			int pos=0;
