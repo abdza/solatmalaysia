@@ -6,13 +6,16 @@ import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import android.util.Log;
 
-public class waktusolat extends Activity {
+public class waktusolat extends Activity implements OnClickListener {
 
 	private static final String TAG = "waktusolat";
 	private static final String WAKTU_PREF = "savedwaktu";
@@ -38,6 +41,10 @@ public class waktusolat extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		View selectZoneButton = findViewById(R.id.select_zone);
+		selectZoneButton.setOnClickListener(this);
+		
 		initThreading();		
 		findViews();
 		guiThread.post(updatewaktu);
@@ -91,5 +98,15 @@ public class waktusolat extends Activity {
 	
 	public String getkodkawasan() {
 		return getPreferences(MODE_PRIVATE).getString("kod_kawasan","sgr03");
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()) {
+		case R.id.select_zone:
+			Intent i = new Intent(this, ZonSolat.class);
+			startActivity(i);
+			break;
+		}		
 	}
 }

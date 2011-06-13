@@ -12,6 +12,8 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<activity android:name=".ZonSolat" android:label="@string/select_zone_title">
+		</activity>
 
 	</application>
 </manifest>

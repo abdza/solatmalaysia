@@ -9,4 +9,7 @@
     <string name="maghrib_title">Maghrib</string>
     <string name="isya_title">Isya\'</string>
     <string name="based_on">Berdasarkan e-solat.gov.my</string>
+    <string name="select_negeri_default">Sila pilih negeri</string>
+    <string name="select_kawasan_default">Sila pilih kawasan</string>
+    <string name="select_zone_title">Pilih kawasan waktu solat</string>
 </resources>
