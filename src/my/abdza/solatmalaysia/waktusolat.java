@@ -104,7 +104,7 @@ public class waktusolat extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch(v.getId()) {
 		case R.id.select_zone:
-			Intent i = new Intent(this, ZonSolat.class);
+			Intent i = new Intent(this, ZonSolat.class);			
 			startActivity(i);
 			break;
 		}		

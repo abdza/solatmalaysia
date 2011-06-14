@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<array name="negeri">
+<item>Johor</item>
+<item>Kedah</item>
+<item>Kelantan</item>
+<item>Melaka</item>
+<item>Negeri Sembilan</item>
+<item>Pahang</item>
+<item>Perak</item>
+<item>Pahang</item>
+<item>Perlis</item>
+<item>Pulau Pinang</item>
+<item>Sabah</item>
+<item>Sarawak</item>
+<item>Selangor Dan Wilayah Persekutuan</item>
+<item>Terengganu</item>
+<item>Wilayah Persekutuan</item>
+</array>
+<array name="nama_1">
+<item>Kota Tinggi, Mersing, Johor Bahru</item>
+<item>Batu Pahat, Muar, Segamat, Gemas</item>
+<item>Kluang dan Pontian</item> 
+<item>Pulau Aur dan Pemanggil</item>
+</array>
+<array name="kod_1">
+<item>jhr02</item>
+<item>jhr04</item>
+<item>jhr03</item> 
+<item>jhr01</item>
+</array>
+</resources>
