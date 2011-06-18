@@ -6,6 +6,12 @@
 		android:layout_height="fill_parent" android:stretchColumns="1">
 		<Button android:id="@+id/select_zone" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:text="@string/select_zone_title" />
+		<TextView android:id="@+id/negeri" android:text="@string/select_negeri_default"
+			android:layout_weight="1" android:gravity="center"
+			android:layout_width="0dip" android:paddingRight="12dip" />
+		<TextView android:id="@+id/kawasan" android:text="@string/select_kawasan_default"
+			android:layout_weight="1" android:gravity="center"
+			android:layout_width="0dip" android:paddingRight="12dip" />
 		<TableRow>
 			<TextView android:text="@string/imsak_title"
 				android:layout_weight="1" android:gravity="right"
