@@ -15,7 +15,7 @@ public class ZonSolat extends Activity implements OnClickListener {
 	private static final String TAG = "ZonSolat";
 
 	private static final String[] negeri = { "Johor", "Kedah", "Kelantan",
-			"Melaka", "Negeri Sembilan", "Pahang", "Perak", "Pahang", "Perlis",
+			"Melaka", "Negeri Sembilan", "Pahang", "Perak","Perlis",
 			"Pulau Pinang", "Sabah", "Sarawak",
 			"Selangor Dan Wilayah Persekutuan", "Terengganu",
 			"Wilayah Persekutuan" };
