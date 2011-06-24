@@ -12,4 +12,6 @@
     <string name="select_negeri_default">Sila pilih negeri</string>
     <string name="select_kawasan_default">Sila pilih kawasan</string>
     <string name="select_zone_title">Pilih kawasan waktu solat</string>
+    <string name="kemaskini_title">Tarikh Kemaskini:</string>
+    <string name="default_kemaskini">Tidak Pernah</string>
 </resources>

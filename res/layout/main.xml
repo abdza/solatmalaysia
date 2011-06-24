@@ -13,6 +13,14 @@
 			android:layout_weight="1" android:gravity="center"
 			android:layout_width="0dip" android:paddingRight="12dip" />
 		<TableRow>
+			<TextView android:id="@+id/kemaskini_title" android:text="@string/kemaskini_title"
+				android:layout_weight="1" android:gravity="right"
+				android:layout_width="0dip" android:paddingRight="12dip" />
+			<TextView android:id="@+id/kemaskini" android:text="@string/default_kemaskini"
+				android:layout_weight="1" android:gravity="left"
+				android:layout_width="0dip" android:paddingRight="12dip" />
+		</TableRow>
+		<TableRow>
 			<TextView android:text="@string/imsak_title"
 				android:layout_weight="1" android:gravity="right"
 				android:layout_width="0dip" android:paddingRight="12dip" />

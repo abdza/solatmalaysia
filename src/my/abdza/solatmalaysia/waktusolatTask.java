@@ -86,6 +86,7 @@ public class waktusolatTask implements Runnable {
 				}				
 				pos++;				
 			}			
+			waktu.savekemaskini();
 			waktu.updatewaktu();
 
 			reader.close();
