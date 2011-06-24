@@ -88,7 +88,7 @@ public class waktusolat extends Activity implements OnClickListener {
 		updatewaktu = new Runnable() {
 			public void run() {
 				String curdate = (String) android.text.format.DateFormat.format("dd/MM/yyyy", new java.util.Date());				
-				if(!curdate.equals(getPreferences(MODE_PRIVATE).getString("kemaskini", "Belum Pernah").substring(6))){
+				if(getIntent().hasExtra("kod_kawasan") || !curdate.equals(getPreferences(MODE_PRIVATE).getString("kemaskini", "Belum Pernah").substring(9))){
 					if (waktupending != null)
 						waktupending.cancel(true);
 					try {
@@ -107,7 +107,7 @@ public class waktusolat extends Activity implements OnClickListener {
 	}
 	
 	public void savekemaskini() {
-		String curdate = (String) android.text.format.DateFormat.format("hh:mm dd/MM/yyyy", new java.util.Date());
+		String curdate = (String) android.text.format.DateFormat.format("hh:mm a dd/MM/yyyy", new java.util.Date());
 		getPreferences(MODE_PRIVATE).edit().putString("kemaskini", curdate).commit();
 	}
 
