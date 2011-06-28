@@ -25,7 +25,8 @@
 				android:layout_width="0dip" android:paddingRight="12dip" />
 		</TableRow>
 		<TableRow>
-			<TextView android:text="@string/imsak_title"
+			<TextView android:id="@+id/imsak_title"
+			android:text="@string/imsak_title"
 				android:layout_weight="1" android:gravity="right"
 				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
@@ -34,7 +35,8 @@
 				android:id="@+id/imsak_time" />
 		</TableRow>
 		<TableRow>
-			<TextView android:text="@string/subuh_title"
+			<TextView android:id="@+id/subuh_title"
+			android:text="@string/subuh_title"
 				android:layout_weight="1" android:gravity="right"
 				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
@@ -43,7 +45,8 @@
 				android:layout_weight="1" android:layout_width="0dip" />
 		</TableRow>
 		<TableRow>
-			<TextView android:text="@string/syuruk_title"
+			<TextView android:id="@+id/syuruk_title"
+			android:text="@string/syuruk_title"
 				android:layout_weight="1" android:gravity="right"
 				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
@@ -52,7 +55,8 @@
 				android:layout_weight="1" android:layout_width="0dip" />
 		</TableRow>
 		<TableRow>
-			<TextView android:text="@string/zohor_title"
+			<TextView android:id="@+id/zohor_title"
+			android:text="@string/zohor_title"
 				android:layout_weight="1" android:gravity="right"
 				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
@@ -61,7 +65,8 @@
 				android:layout_weight="1" android:layout_width="0dip" />
 		</TableRow>
 		<TableRow>
-			<TextView android:text="@string/asar_title"
+			<TextView android:id="@+id/asar_title"
+			android:text="@string/asar_title"
 				android:layout_weight="1" android:gravity="right"
 				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
@@ -70,7 +75,8 @@
 				android:layout_width="0dip" />
 		</TableRow>
 		<TableRow>
-			<TextView android:text="@string/maghrib_title"
+			<TextView android:id="@+id/maghrib_title"
+			android:text="@string/maghrib_title"
 				android:layout_weight="1" android:gravity="right"
 				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
@@ -79,7 +85,8 @@
 				android:layout_weight="1" android:layout_width="0dip" />
 		</TableRow>
 		<TableRow>
-			<TextView android:text="@string/isya_title"
+			<TextView android:id="@+id/isya_title"
+			android:text="@string/isya_title"
 				android:layout_weight="1" android:gravity="right"
 				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
