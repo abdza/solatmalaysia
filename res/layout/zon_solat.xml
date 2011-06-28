@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/zon_layout"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 	<Button
@@ -7,12 +8,16 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:text="@string/select_negeri_default"
+	android:background="@layout/buttonshape" android:paddingTop="8dip" android:paddingBottom="8dip"
+	android:layout_marginTop="12dip"
 	/>
 	<Button
 	android:id="@+id/select_kawasan"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:text="@string/select_kawasan_default"
+	android:background="@layout/buttonshape" android:paddingTop="8dip" android:paddingBottom="8dip"
+	android:layout_marginTop="12dip"
 	/>
 </LinearLayout>
 	

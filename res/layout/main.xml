@@ -1,74 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+	android:id="@+id/tbl" android:orientation="vertical"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
 	<TableLayout android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:stretchColumns="1">
-		<Button android:id="@+id/select_zone" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="@string/select_zone_title" />
-		<TextView android:id="@+id/negeri" android:text="@string/select_negeri_default"
+		android:layout_height="fill_parent" android:stretchColumns="1">		
+		<TextView android:id="@+id/negeri" android:paddingTop="12dip" 
+		android:text="@string/select_negeri_default"
 			android:layout_weight="1" android:gravity="center"
+			android:textColor="@color/black"
 			android:layout_width="0dip" android:paddingRight="12dip" />
 		<TextView android:id="@+id/kawasan" android:text="@string/select_kawasan_default"
 			android:layout_weight="1" android:gravity="center"
+			android:textColor="@color/black"
 			android:layout_width="0dip" android:paddingRight="12dip" />
 		<TableRow>
 			<TextView android:id="@+id/kemaskini_title" android:text="@string/kemaskini_title"
 				android:layout_weight="1" android:gravity="right"
+				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
 			<TextView android:id="@+id/kemaskini" android:text="@string/default_kemaskini"
 				android:layout_weight="1" android:gravity="left"
+				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
 		</TableRow>
 		<TableRow>
 			<TextView android:text="@string/imsak_title"
 				android:layout_weight="1" android:gravity="right"
+				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
 			<TextView android:layout_weight="1" android:layout_width="0dip"
+			android:textColor="@color/black"
 				android:id="@+id/imsak_time" />
 		</TableRow>
 		<TableRow>
 			<TextView android:text="@string/subuh_title"
 				android:layout_weight="1" android:gravity="right"
+				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
 			<TextView android:id="@+id/subuh_time"
+			android:textColor="@color/black"
 				android:layout_weight="1" android:layout_width="0dip" />
 		</TableRow>
 		<TableRow>
 			<TextView android:text="@string/syuruk_title"
 				android:layout_weight="1" android:gravity="right"
+				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
 			<TextView android:id="@+id/syuruk_time"
+			android:textColor="@color/black"
 				android:layout_weight="1" android:layout_width="0dip" />
 		</TableRow>
 		<TableRow>
 			<TextView android:text="@string/zohor_title"
 				android:layout_weight="1" android:gravity="right"
+				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
 			<TextView android:id="@+id/zohor_time"
+			android:textColor="@color/black"
 				android:layout_weight="1" android:layout_width="0dip" />
 		</TableRow>
 		<TableRow>
 			<TextView android:text="@string/asar_title"
 				android:layout_weight="1" android:gravity="right"
+				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
 			<TextView android:id="@+id/asar_time" android:layout_weight="1"
+			android:textColor="@color/black"
 				android:layout_width="0dip" />
 		</TableRow>
 		<TableRow>
 			<TextView android:text="@string/maghrib_title"
 				android:layout_weight="1" android:gravity="right"
+				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
 			<TextView android:id="@+id/maghrib_time"
+			android:textColor="@color/black"
 				android:layout_weight="1" android:layout_width="0dip" />
 		</TableRow>
 		<TableRow>
 			<TextView android:text="@string/isya_title"
 				android:layout_weight="1" android:gravity="right"
+				android:textColor="@color/black"
 				android:layout_width="0dip" android:paddingRight="12dip" />
 			<TextView android:id="@+id/isya_time" android:layout_weight="1"
+			android:textColor="@color/black"
 				android:layout_width="0dip" />
 		</TableRow>
-		<TextView android:text="@string/based_on" android:gravity="center" />
+		<TextView android:paddingBottom="12dip" android:text="@string/based_on" android:gravity="center" android:textColor="@color/black"/>
+		<Button android:id="@+id/select_zone" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="@string/select_zone_title" 
+			android:background="@layout/buttonshape" android:paddingTop="12dip" android:paddingBottom="12dip"/>
 	</TableLayout>
 </ScrollView>
