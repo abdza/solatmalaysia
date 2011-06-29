@@ -121,11 +121,10 @@ public class waktusolat extends Activity implements OnClickListener {
 	public void updatewaktu() {
 		guiThread.post(new Runnable() {
 			public void run() {
-				SimpleDateFormat cdf = new SimpleDateFormat("hh:mm");
+				SimpleDateFormat cdf = new SimpleDateFormat("HH:mm");
 				try{
-					String curtime = (String) android.text.format.DateFormat.format("hh:mm", new java.util.Date());
+					String curtime = (String) android.text.format.DateFormat.format("kk:mm", new java.util.Date());
 					Date curdate = cdf.parse(curtime);
-					
 					String strimsak = getPreferences(MODE_PRIVATE).getString(waktu_imsak, "--");
 					String strsubuh = getPreferences(MODE_PRIVATE).getString(waktu_subuh, "--");
 					String strsyuruk = getPreferences(MODE_PRIVATE).getString(waktu_syuruk, "--");
@@ -171,14 +170,14 @@ public class waktusolat extends Activity implements OnClickListener {
 						maghrib_time.setBackgroundResource(R.color.hightlight);
 					}
 					isya_time.setText(strisya);
-					if(curdate.after(cdf.parse(strisya))){
+					if(curdate.after(cdf.parse(strisya)) || curdate.before(cdf.parse(strimsak))){
 						TextView title = (TextView) findViewById(R.id.isya_title);
 						title.setBackgroundResource(R.color.hightlight);
 						isya_time.setBackgroundResource(R.color.hightlight);
 					}
 				}
 				catch(Exception e){
-					
+					Log.d(TAG, "Rejectedexception", e);
 				}
 				
 				kemaskini.setText(getPreferences(MODE_PRIVATE).getString("kemaskini", "Belum Pernah"));
