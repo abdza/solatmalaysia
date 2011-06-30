@@ -67,6 +67,12 @@ public class waktusolat extends Activity implements OnClickListener {
 		findViews();
 		guiThread.post(updatewaktu);
 	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		updatewaktu();
+	}
 
 	private void findViews() {		
 		
