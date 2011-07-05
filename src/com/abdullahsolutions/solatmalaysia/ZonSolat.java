@@ -152,7 +152,7 @@ public class ZonSolat extends Activity implements OnClickListener {
 		intent.putExtra("kod_kawasan", kod_kawasan[(int) getPreferences(MODE_PRIVATE).getLong("negeri", 0)][i]);
 		intent.putExtra("kawasan", nama_kawasan[(int) getPreferences(MODE_PRIVATE).getLong("negeri", 0)][i]);
 		intent.putExtra("negeri", negeri[(int) getPreferences(MODE_PRIVATE).getLong("negeri", 0)]);
-		startActivity(intent);
+		setResult(RESULT_OK,intent);
+		finish();
 	}
-
 }

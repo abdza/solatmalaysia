@@ -44,6 +44,8 @@ public class waktusolatTask implements Runnable {
 			con.setDoInput(true);
 			con.connect();
 			
+			Log.d(TAG, "Trying to get latest data");
+			
 			if(Thread.interrupted())
 				throw new InterruptedException();
 			BufferedReader reader = new BufferedReader(
@@ -87,7 +89,7 @@ public class waktusolatTask implements Runnable {
 				pos++;				
 			}			
 			waktu.savekemaskini();
-			waktu.updatewaktu();
+			waktu.updatewaktuview();
 
 			reader.close();
 

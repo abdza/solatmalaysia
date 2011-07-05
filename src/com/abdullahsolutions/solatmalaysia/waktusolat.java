@@ -24,7 +24,6 @@ import android.util.Log;
 public class waktusolat extends Activity implements OnClickListener {
 
 	private static final String TAG = "waktusolat";
-	private static final String WAKTU_PREF = "savedwaktu";
 
 	private TextView imsak_time, subuh_time, syuruk_time, zohor_time,
 			asar_time, maghrib_time, isya_time,kawasan,negeri,kemaskini;
@@ -36,6 +35,8 @@ public class waktusolat extends Activity implements OnClickListener {
 	public static final String waktu_maghrib = "waktu_maghrib";
 	public static final String waktu_isya = "waktu_isya";
 	public static final String waktu_kemaskini = "kemaskini";	
+	
+	static final int pick_kawasan_request = 0;
 
 	private Handler guiThread;
 	private ExecutorService waktuThread;
@@ -46,20 +47,8 @@ public class waktusolat extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);		
+		setContentView(R.layout.main);
 		
-		if (getIntent().hasExtra("kod_kawasan")) {
-			Bundle extras = getIntent().getExtras();
-			String kod_kawasan = extras.getString("kod_kawasan");
-			getPreferences(MODE_PRIVATE).edit().putString("kod_kawasan", kod_kawasan).commit();
-			
-			String kawasan = extras.getString("kawasan");
-			getPreferences(MODE_PRIVATE).edit().putString("kawasan", kawasan).commit();
-			
-			String negeri = extras.getString("negeri");
-			getPreferences(MODE_PRIVATE).edit().putString("negeri", negeri).commit();
-			Log.d(TAG, "kod_kawasan:" + kod_kawasan);
-		}
 		View selectZoneButton = findViewById(R.id.select_zone);
 		selectZoneButton.setOnClickListener(this);
 
@@ -71,7 +60,7 @@ public class waktusolat extends Activity implements OnClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		updatewaktu();
+		updatewaktuview();
 	}
 
 	private void findViews() {		
@@ -86,22 +75,19 @@ public class waktusolat extends Activity implements OnClickListener {
 		negeri = (TextView) findViewById(R.id.negeri);
 		kawasan = (TextView) findViewById(R.id.kawasan);
 		kemaskini = (TextView) findViewById(R.id.kemaskini);
-		
-		negeri.setText(getPreferences(MODE_PRIVATE).getString("negeri", "Selangor Dan Wilayah Persekutuan"));
-		kawasan.setText(getPreferences(MODE_PRIVATE).getString("kawasan", "Kuala Lumpur"));
-		kemaskini.setText(getPreferences(MODE_PRIVATE).getString("kemaskini", "Belum Pernah"));
 	}
 
 	private void initThreading() {
 		guiThread = new Handler();
-		waktuThread = Executors.newSingleThreadExecutor();
+		waktuThread = Executors.newSingleThreadExecutor();		
 		updatewaktu = new Runnable() {
-			public void run() {
+			public void run() {				
 				String curdate = (String) android.text.format.DateFormat.format("dd/MM/yyyy", new java.util.Date());				
-				if(getIntent().hasExtra("kod_kawasan") || !curdate.equals(getPreferences(MODE_PRIVATE).getString("kemaskini", "Belum Pernah").substring(9))){
+				if(true || !curdate.equals(getPreferences(MODE_PRIVATE).getString("kemaskini", "Belum Pernah").substring(9))){
 					if (waktupending != null)
 						waktupending.cancel(true);
 					try {
+						Log.d(TAG, "Right here");
 						waktusolatTask waktutask = new waktusolatTask(waktusolat.this);
 						waktupending = waktuThread.submit(waktutask);
 					} catch (RejectedExecutionException e) {
@@ -109,7 +95,7 @@ public class waktusolat extends Activity implements OnClickListener {
 					}
 				}
 				else{
-					updatewaktu();
+					updatewaktuview();
 				}
 			}
 		};
@@ -124,9 +110,12 @@ public class waktusolat extends Activity implements OnClickListener {
 		getPreferences(MODE_PRIVATE).edit().putString("kemaskini", curdate).commit();
 	}
 
-	public void updatewaktu() {
+	public void updatewaktuview() {
 		guiThread.post(new Runnable() {
 			public void run() {
+				negeri.setText(getPreferences(MODE_PRIVATE).getString("negeri", "Selangor Dan Wilayah Persekutuan"));
+				kawasan.setText(getPreferences(MODE_PRIVATE).getString("kawasan", "Kuala Lumpur"));
+				kemaskini.setText(getPreferences(MODE_PRIVATE).getString("kemaskini", "Belum Pernah"));
 				SimpleDateFormat cdf = new SimpleDateFormat("HH:mm");
 				try{
 					String curtime = (String) android.text.format.DateFormat.format("kk:mm", new java.util.Date());
@@ -141,45 +130,52 @@ public class waktusolat extends Activity implements OnClickListener {
 					
 					imsak_time.setText(strimsak);
 					if(curdate.after(cdf.parse(strimsak)) && curdate.before(cdf.parse(strsubuh))){
-						TextView title = (TextView) findViewById(R.id.imsak_title);
-						title.setBackgroundResource(R.color.hightlight);
-						imsak_time.setBackgroundResource(R.color.hightlight);
+						highlight(R.id.imsak_title,imsak_time,true);
+					}
+					else{
+						highlight(R.id.imsak_title,imsak_time,false);
 					}
 					subuh_time.setText(strsubuh);
 					if(curdate.after(cdf.parse(strsubuh)) && curdate.before(cdf.parse(strsyuruk))){
-						TextView title = (TextView) findViewById(R.id.subuh_title);
-						title.setBackgroundResource(R.color.hightlight);
-						subuh_time.setBackgroundResource(R.color.hightlight);
+						highlight(R.id.subuh_title,subuh_time,true);
+					}
+					else{
+						highlight(R.id.subuh_title,subuh_time,false);
 					}
 					syuruk_time.setText(strsyuruk);
 					if(curdate.after(cdf.parse(strsyuruk)) && curdate.before(cdf.parse(strzohor))){
-						TextView title = (TextView) findViewById(R.id.syuruk_title);
-						title.setBackgroundResource(R.color.hightlight);
-						syuruk_time.setBackgroundResource(R.color.hightlight);
+						highlight(R.id.syuruk_title,syuruk_time,true);
+					}
+					else{
+						highlight(R.id.syuruk_title,syuruk_time,false);
 					}
 					zohor_time.setText(strzohor);
 					if(curdate.after(cdf.parse(strzohor)) && curdate.before(cdf.parse(strasar))){
-						TextView title = (TextView) findViewById(R.id.zohor_title);
-						title.setBackgroundResource(R.color.hightlight);
-						zohor_time.setBackgroundResource(R.color.hightlight);
+						highlight(R.id.zohor_title,zohor_time,true);
+					}
+					else{
+						highlight(R.id.zohor_title,zohor_time,false);
 					}
 					asar_time.setText(strasar);
 					if(curdate.after(cdf.parse(strasar)) && curdate.before(cdf.parse(strmaghrib))){
-						TextView title = (TextView) findViewById(R.id.asar_title);
-						title.setBackgroundResource(R.color.hightlight);
-						asar_time.setBackgroundResource(R.color.hightlight);
+						highlight(R.id.asar_title,asar_time,true);
+					}
+					else{
+						highlight(R.id.asar_title,asar_time,false);
 					}
 					maghrib_time.setText(strmaghrib);
 					if(curdate.after(cdf.parse(strmaghrib)) && curdate.before(cdf.parse(strisya))){
-						TextView title = (TextView) findViewById(R.id.maghrib_title);
-						title.setBackgroundResource(R.color.hightlight);
-						maghrib_time.setBackgroundResource(R.color.hightlight);
+						highlight(R.id.maghrib_title,maghrib_time,true);
+					}
+					else{
+						highlight(R.id.maghrib_title,maghrib_time,false);
 					}
 					isya_time.setText(strisya);
 					if(curdate.after(cdf.parse(strisya)) || curdate.before(cdf.parse(strimsak))){
-						TextView title = (TextView) findViewById(R.id.isya_title);
-						title.setBackgroundResource(R.color.hightlight);
-						isya_time.setBackgroundResource(R.color.hightlight);
+						highlight(R.id.isya_title,isya_time,true);
+					}
+					else{
+						highlight(R.id.isya_title,isya_time,false);
 					}
 				}
 				catch(Exception e){
@@ -189,6 +185,19 @@ public class waktusolat extends Activity implements OnClickListener {
 				kemaskini.setText(getPreferences(MODE_PRIVATE).getString("kemaskini", "Belum Pernah"));
 			}
 		});
+	}
+	
+	private void highlight(int titleint,TextView time,boolean hightlight){
+		if(hightlight){
+			TextView title = (TextView) findViewById(titleint);
+			title.setBackgroundResource(R.color.hightlight);
+			time.setBackgroundResource(R.color.hightlight);
+		}
+		else{
+			TextView title = (TextView) findViewById(titleint);
+			title.setBackgroundResource(R.color.green);
+			time.setBackgroundResource(R.color.green);
+		}
 	}
 
 	public String getkodkawasan() {
@@ -200,8 +209,30 @@ public class waktusolat extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.select_zone:
 			Intent i = new Intent(this, ZonSolat.class);
-			startActivity(i);
+			startActivityForResult(i,pick_kawasan_request);
 			break;
 		}
 	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == pick_kawasan_request) {
+            if (resultCode == RESULT_OK) {
+            	if (data.hasExtra("kod_kawasan")) {
+        			Bundle extras = data.getExtras();
+        			String kod_kawasan = extras.getString("kod_kawasan");
+        			getPreferences(MODE_PRIVATE).edit().putString("kod_kawasan", kod_kawasan).commit();
+        			
+        			String kawasan = extras.getString("kawasan");
+        			getPreferences(MODE_PRIVATE).edit().putString("kawasan", kawasan).commit();
+        			
+        			String negeri = extras.getString("negeri");
+        			getPreferences(MODE_PRIVATE).edit().putString("negeri", negeri).commit();
+        			Log.d(TAG, "kod_kawasan:" + kod_kawasan);
+        			
+        			getPreferences(MODE_PRIVATE).edit().putBoolean("reset", true).commit();
+        			updatewaktu.run();
+        		}
+            }
+        }
+    }
 }
