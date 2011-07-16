@@ -10,12 +10,16 @@ import java.util.concurrent.RejectedExecutionException;
 import com.abdullahsolutions.solatmalaysia.R;
 
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import android.text.format.DateFormat;
@@ -24,6 +28,7 @@ import android.util.Log;
 public class waktusolat extends Activity implements OnClickListener {
 
 	private static final String TAG = "waktusolat";
+	public static final String PREFS_NAME = "MyPrefsFile";
 
 	private TextView imsak_time, subuh_time, syuruk_time, zohor_time,
 			asar_time, maghrib_time, isya_time,kawasan,negeri,kemaskini;
@@ -42,11 +47,14 @@ public class waktusolat extends Activity implements OnClickListener {
 	private ExecutorService waktuThread;
 	private Runnable updatewaktu;
 	private Future waktupending;
+	private SharedPreferences settings;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		settings = getSharedPreferences(PREFS_NAME, 0);
+
 		setContentView(R.layout.main);
 		
 		View selectZoneButton = findViewById(R.id.select_zone);
@@ -83,7 +91,7 @@ public class waktusolat extends Activity implements OnClickListener {
 		updatewaktu = new Runnable() {
 			public void run() {				
 				String curdate = (String) android.text.format.DateFormat.format("dd/MM/yyyy", new java.util.Date());				
-				if(true || !curdate.equals(getPreferences(MODE_PRIVATE).getString("kemaskini", "Belum Pernah").substring(9))){
+				if(settings.getBoolean("updatetime",false)||!curdate.equals(settings.getString("kemaskini", "Belum Pernah").substring(9))){
 					if (waktupending != null)
 						waktupending.cancel(true);
 					try {
@@ -102,31 +110,31 @@ public class waktusolat extends Activity implements OnClickListener {
 	}
 
 	public void savewaktu(String nama_waktu, String waktu) {
-		getPreferences(MODE_PRIVATE).edit().putString(nama_waktu, waktu).commit();
+		settings.edit().putString(nama_waktu, waktu).commit();
 	}
 	
 	public void savekemaskini() {
 		String curdate = (String) android.text.format.DateFormat.format("hh:mm a dd/MM/yyyy", new java.util.Date());
-		getPreferences(MODE_PRIVATE).edit().putString("kemaskini", curdate).commit();
+		settings.edit().putString("kemaskini", curdate).commit();
 	}
 
 	public void updatewaktuview() {
 		guiThread.post(new Runnable() {
 			public void run() {
-				negeri.setText(getPreferences(MODE_PRIVATE).getString("negeri", "Selangor Dan Wilayah Persekutuan"));
-				kawasan.setText(getPreferences(MODE_PRIVATE).getString("kawasan", "Kuala Lumpur"));
-				kemaskini.setText(getPreferences(MODE_PRIVATE).getString("kemaskini", "Belum Pernah"));
+				negeri.setText(settings.getString("negeri", "Selangor Dan Wilayah Persekutuan"));
+				kawasan.setText(settings.getString("kawasan", "Kuala Lumpur"));
+				kemaskini.setText(settings.getString("kemaskini", "Belum Pernah"));
 				SimpleDateFormat cdf = new SimpleDateFormat("HH:mm");
 				try{
 					String curtime = (String) android.text.format.DateFormat.format("kk:mm", new java.util.Date());
 					Date curdate = cdf.parse(curtime);
-					String strimsak = getPreferences(MODE_PRIVATE).getString(waktu_imsak, "--");
-					String strsubuh = getPreferences(MODE_PRIVATE).getString(waktu_subuh, "--");
-					String strsyuruk = getPreferences(MODE_PRIVATE).getString(waktu_syuruk, "--");
-					String strzohor = getPreferences(MODE_PRIVATE).getString(waktu_zohor, "--");
-					String strasar = getPreferences(MODE_PRIVATE).getString(waktu_asar, "--");
-					String strmaghrib = getPreferences(MODE_PRIVATE).getString(waktu_maghrib, "--");
-					String strisya = getPreferences(MODE_PRIVATE).getString(waktu_isya, "--");
+					String strimsak = settings.getString(waktu_imsak, "--");
+					String strsubuh = settings.getString(waktu_subuh, "--");
+					String strsyuruk = settings.getString(waktu_syuruk, "--");
+					String strzohor = settings.getString(waktu_zohor, "--");
+					String strasar = settings.getString(waktu_asar, "--");
+					String strmaghrib = settings.getString(waktu_maghrib, "--");
+					String strisya = settings.getString(waktu_isya, "--");
 					
 					imsak_time.setText(strimsak);
 					if(curdate.after(cdf.parse(strimsak)) && curdate.before(cdf.parse(strsubuh))){
@@ -182,7 +190,7 @@ public class waktusolat extends Activity implements OnClickListener {
 					Log.d(TAG, "Rejectedexception", e);
 				}
 				
-				kemaskini.setText(getPreferences(MODE_PRIVATE).getString("kemaskini", "Belum Pernah"));
+				kemaskini.setText(settings.getString("kemaskini", "Belum Pernah"));
 			}
 		});
 	}
@@ -201,7 +209,7 @@ public class waktusolat extends Activity implements OnClickListener {
 	}
 
 	public String getkodkawasan() {
-		return getPreferences(MODE_PRIVATE).getString("kod_kawasan", "sgr03");
+		return settings.getString("kod_kawasan", "sgr03");
 	}
 
 	@Override
@@ -220,16 +228,21 @@ public class waktusolat extends Activity implements OnClickListener {
             	if (data.hasExtra("kod_kawasan")) {
         			Bundle extras = data.getExtras();
         			String kod_kawasan = extras.getString("kod_kawasan");
-        			getPreferences(MODE_PRIVATE).edit().putString("kod_kawasan", kod_kawasan).commit();
+        			settings.edit().putString("kod_kawasan", kod_kawasan).commit();
         			
         			String kawasan = extras.getString("kawasan");
-        			getPreferences(MODE_PRIVATE).edit().putString("kawasan", kawasan).commit();
+        			settings.edit().putString("kawasan", kawasan).commit();
         			
         			String negeri = extras.getString("negeri");
-        			getPreferences(MODE_PRIVATE).edit().putString("negeri", negeri).commit();
+        			settings.edit().putString("negeri", negeri).commit();
         			Log.d(TAG, "kod_kawasan:" + kod_kawasan);
         			
-        			getPreferences(MODE_PRIVATE).edit().putBoolean("reset", true).commit();
+        			settings.edit().putBoolean("reset", true).commit();
+        			ComponentName me=new ComponentName(this, SolatWidget.class);        			
+        			AppWidgetManager mgr=AppWidgetManager.getInstance(this);
+        			
+        			mgr.updateAppWidget(me,SolatWidget.updateview(getApplicationContext()));
+        			settings.edit().putBoolean("updatetime", true).commit();
         			updatewaktu.run();
         		}
             }
