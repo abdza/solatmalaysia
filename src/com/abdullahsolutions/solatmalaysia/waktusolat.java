@@ -12,11 +12,14 @@ import com.abdullahsolutions.solatmalaysia.R;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RemoteViews;
@@ -48,6 +51,22 @@ public class waktusolat extends Activity implements OnClickListener {
 	private Runnable updatewaktu;
 	private Future waktupending;
 	private SharedPreferences settings;
+	
+	private SolatService solatservice;
+	private boolean servicebound;
+	
+	private ServiceConnection connection = 
+			new ServiceConnection() {
+		
+		public void onServiceDisconnected(ComponentName className) {
+	        solatservice = null;
+	    }
+
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			solatservice = ((SolatService.LocalBinder)service).getService();			
+		}
+	};
 
 	/** Called when the activity is first created. */
 	@Override
@@ -63,6 +82,30 @@ public class waktusolat extends Activity implements OnClickListener {
 		initThreading();
 		findViews();
 		guiThread.post(updatewaktu);
+		doBindService();
+	}
+	
+	private void doBindService() {
+		Log.d(TAG,"Binding");
+		new Thread(new Runnable() {
+	        public void run() {
+	    		bindService(new Intent(SolatService.class.getName()),connection,Context.BIND_AUTO_CREATE);
+	        }
+	    }).start();
+		servicebound = true;
+	}
+	
+	private void doUnbindService() {
+		if(servicebound){
+			unbindService(this.connection);
+			servicebound = false;
+		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+	    super.onDestroy();
+	    doUnbindService();
 	}
 	
 	@Override
@@ -94,8 +137,7 @@ public class waktusolat extends Activity implements OnClickListener {
 				if(settings.getBoolean("updatetime",false)||!curdate.equals(settings.getString("kemaskini", "Belum Pernah").substring(9))){
 					if (waktupending != null)
 						waktupending.cancel(true);
-					try {
-						Log.d(TAG, "Right here");
+					try {						
 						waktusolatTask waktutask = new waktusolatTask(waktusolat.this);
 						waktupending = waktuThread.submit(waktutask);
 					} catch (RejectedExecutionException e) {
@@ -137,49 +179,49 @@ public class waktusolat extends Activity implements OnClickListener {
 					String strisya = settings.getString(waktu_isya, "--");
 					
 					imsak_time.setText(strimsak);
-					if(curdate.after(cdf.parse(strimsak)) && curdate.before(cdf.parse(strsubuh))){
+					if(curdate.equals(cdf.parseObject(strimsak)) || (curdate.after(cdf.parse(strimsak)) && curdate.before(cdf.parse(strsubuh)))){
 						highlight(R.id.imsak_title,imsak_time,true);
 					}
 					else{
 						highlight(R.id.imsak_title,imsak_time,false);
 					}
 					subuh_time.setText(strsubuh);
-					if(curdate.after(cdf.parse(strsubuh)) && curdate.before(cdf.parse(strsyuruk))){
+					if(curdate.equals(cdf.parseObject(strsubuh)) || (curdate.after(cdf.parse(strsubuh)) && curdate.before(cdf.parse(strsyuruk)))){
 						highlight(R.id.subuh_title,subuh_time,true);
 					}
 					else{
 						highlight(R.id.subuh_title,subuh_time,false);
 					}
 					syuruk_time.setText(strsyuruk);
-					if(curdate.after(cdf.parse(strsyuruk)) && curdate.before(cdf.parse(strzohor))){
+					if(curdate.equals(cdf.parseObject(strsyuruk)) || (curdate.after(cdf.parse(strsyuruk)) && curdate.before(cdf.parse(strzohor)))){
 						highlight(R.id.syuruk_title,syuruk_time,true);
 					}
 					else{
 						highlight(R.id.syuruk_title,syuruk_time,false);
 					}
 					zohor_time.setText(strzohor);
-					if(curdate.after(cdf.parse(strzohor)) && curdate.before(cdf.parse(strasar))){
+					if(curdate.equals(cdf.parseObject(strzohor)) || (curdate.after(cdf.parse(strzohor)) && curdate.before(cdf.parse(strasar)))){
 						highlight(R.id.zohor_title,zohor_time,true);
 					}
 					else{
 						highlight(R.id.zohor_title,zohor_time,false);
 					}
 					asar_time.setText(strasar);
-					if(curdate.after(cdf.parse(strasar)) && curdate.before(cdf.parse(strmaghrib))){
+					if(curdate.equals(cdf.parseObject(strasar)) || (curdate.after(cdf.parse(strasar)) && curdate.before(cdf.parse(strmaghrib)))){
 						highlight(R.id.asar_title,asar_time,true);
 					}
 					else{
 						highlight(R.id.asar_title,asar_time,false);
 					}
 					maghrib_time.setText(strmaghrib);
-					if(curdate.after(cdf.parse(strmaghrib)) && curdate.before(cdf.parse(strisya))){
+					if(curdate.equals(cdf.parseObject(strmaghrib)) || (curdate.after(cdf.parse(strmaghrib)) && curdate.before(cdf.parse(strisya)))){
 						highlight(R.id.maghrib_title,maghrib_time,true);
 					}
 					else{
 						highlight(R.id.maghrib_title,maghrib_time,false);
 					}
 					isya_time.setText(strisya);
-					if(curdate.after(cdf.parse(strisya)) || curdate.before(cdf.parse(strimsak))){
+					if(curdate.equals(cdf.parseObject(strisya)) || curdate.after(cdf.parse(strisya)) || curdate.before(cdf.parse(strimsak))){
 						highlight(R.id.isya_title,isya_time,true);
 					}
 					else{

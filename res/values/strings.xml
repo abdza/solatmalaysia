@@ -15,4 +15,5 @@
     <string name="kemaskini_title">Tarikh Kemaskini:</string>
     <string name="default_kemaskini">Tidak Pernah</string>
     <string name="widget_name">Widget Solat</string>
+    <string name="solatnotification">Solat Notification</string>
 </resources>
