@@ -49,7 +49,7 @@ public class SolatWidget extends AppWidgetProvider {
 		String strmaghrib = settings.getString(waktu_maghrib, "--");
 		String strisya = settings.getString(waktu_isya, "--");
 		updateViews.setTextViewText(R.id.imsak, settings.getString(waktu_imsak, "--"));
-		if(curdate.after(cdf.parse(strimsak)) && curdate.before(cdf.parse(strsubuh))){
+		if(curdate.equals(cdf.parse(strimsak)) || (curdate.after(cdf.parse(strimsak)) && curdate.before(cdf.parse(strsubuh)))){
 			updateViews.setInt(R.id.imsakline, "setBackgroundResource", R.color.hightlight);
 		}
 		else{
@@ -57,7 +57,7 @@ public class SolatWidget extends AppWidgetProvider {
 		}
 				
 		updateViews.setTextViewText(R.id.subuh, settings.getString(waktu_subuh, "--"));
-		if(curdate.after(cdf.parse(strsubuh)) && curdate.before(cdf.parse(strsyuruk))){
+		if(curdate.equals(cdf.parse(strsubuh)) || (curdate.after(cdf.parse(strsubuh)) && curdate.before(cdf.parse(strsyuruk)))){
 			updateViews.setInt(R.id.subuhline, "setBackgroundResource", R.color.hightlight);
 		}
 		else{
@@ -65,7 +65,7 @@ public class SolatWidget extends AppWidgetProvider {
 		}
 		
 		updateViews.setTextViewText(R.id.syuruk, settings.getString(waktu_syuruk, "--"));
-		if(curdate.after(cdf.parse(strsyuruk)) && curdate.before(cdf.parse(strzohor))){
+		if(curdate.equals(cdf.parse(strsyuruk)) || (curdate.after(cdf.parse(strsyuruk)) && curdate.before(cdf.parse(strzohor)))){
 			updateViews.setInt(R.id.syurukline, "setBackgroundResource", R.color.hightlight);
 		}
 		else{
@@ -73,7 +73,7 @@ public class SolatWidget extends AppWidgetProvider {
 		}
 		
 		updateViews.setTextViewText(R.id.zohor, settings.getString(waktu_zohor, "--"));
-		if(curdate.after(cdf.parse(strzohor)) && curdate.before(cdf.parse(strasar))){
+		if(curdate.equals(cdf.parse(strzohor)) || (curdate.after(cdf.parse(strzohor)) && curdate.before(cdf.parse(strasar)))){
 			updateViews.setInt(R.id.zohorline, "setBackgroundResource", R.color.hightlight);
 		}
 		else{
@@ -81,7 +81,7 @@ public class SolatWidget extends AppWidgetProvider {
 		}
 		
 		updateViews.setTextViewText(R.id.asar, settings.getString(waktu_asar, "--"));
-		if(curdate.after(cdf.parse(strasar)) && curdate.before(cdf.parse(strmaghrib))){
+		if(curdate.equals(cdf.parse(strasar)) || (curdate.after(cdf.parse(strasar)) && curdate.before(cdf.parse(strmaghrib)))){
 			updateViews.setInt(R.id.asarline, "setBackgroundResource", R.color.hightlight);
 		}
 		else{
@@ -89,7 +89,7 @@ public class SolatWidget extends AppWidgetProvider {
 		}
 		
 		updateViews.setTextViewText(R.id.maghrib, settings.getString(waktu_maghrib, "--"));
-		if(curdate.after(cdf.parse(strmaghrib)) && curdate.before(cdf.parse(strisya))){
+		if(curdate.equals(cdf.parse(strmaghrib)) || (curdate.after(cdf.parse(strmaghrib)) && curdate.before(cdf.parse(strisya)))){
 			updateViews.setInt(R.id.maghribline, "setBackgroundResource", R.color.hightlight);
 		}
 		else{
@@ -97,7 +97,7 @@ public class SolatWidget extends AppWidgetProvider {
 		}
 		
 		updateViews.setTextViewText(R.id.isya, strisya);
-		if(curdate.after(cdf.parse(strisya)) || curdate.before(cdf.parse(strimsak))){
+		if(curdate.equals(cdf.parse(strimsak)) || curdate.after(cdf.parse(strisya)) || curdate.before(cdf.parse(strimsak))){
 			updateViews.setInt(R.id.isyaline, "setBackgroundResource", R.color.hightlight);
 		}
 		else{

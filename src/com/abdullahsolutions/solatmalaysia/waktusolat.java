@@ -86,13 +86,11 @@ public class waktusolat extends Activity implements OnClickListener {
 	}
 	
 	private void doBindService() {
-		Log.d(TAG,"Binding");
-		new Thread(new Runnable() {
-	        public void run() {
-	    		bindService(new Intent(SolatService.class.getName()),connection,Context.BIND_AUTO_CREATE);
-	        }
-	    }).start();
-		servicebound = true;
+		if(!servicebound){
+			Log.d(TAG,"Binding");
+		    bindService(new Intent(SolatService.class.getName()),connection,Context.BIND_AUTO_CREATE);
+			servicebound = true;
+		}
 	}
 	
 	private void doUnbindService() {
@@ -112,6 +110,7 @@ public class waktusolat extends Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		updatewaktuview();
+		doBindService();
 	}
 
 	private void findViews() {		
