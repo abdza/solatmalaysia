@@ -16,4 +16,22 @@
     <string name="default_kemaskini">Tidak Pernah</string>
     <string name="widget_name">Widget Solat</string>
     <string name="solatnotification">Solat Notification</string>
+    
+    <string name="settings_label">Settings</string>
+    <string name="settings_shortcut">s</string>
+    <string name="settings_title">Solat Malaysia Settings</string>
+    <string name="imsak_setting_title">Imsak</string>
+    <string name="imsak_setting_summary">Azan waktu masuk Imsak</string>
+    <string name="subuh_setting_title">Subuh</string>
+    <string name="subuh_setting_summary">Azan waktu masuk Subuh</string>
+    <string name="syuruk_setting_title">Syuruk</string>
+    <string name="syuruk_setting_summary">Azan waktu masuk Syuruk</string>
+    <string name="zohor_setting_title">Zohor</string>
+    <string name="zohor_setting_summary">Azan waktu masuk Zohor</string>
+    <string name="asar_setting_title">Asar</string>
+    <string name="asar_setting_summary">Azan waktu masuk Asar</string>
+    <string name="maghrib_setting_title">Maghrib</string>
+    <string name="maghrib_setting_summary">Azan waktu masuk Maghrib</string>
+    <string name="isya_setting_title">Isya\'</string>
+    <string name="isya_setting_summary">Azan waktu masuk Isya\'</string>
 </resources>

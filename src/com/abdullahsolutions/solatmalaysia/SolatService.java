@@ -43,8 +43,7 @@ public class SolatService extends Service {
     	  	String curtime = (String) android.text.format.DateFormat.format("kk:mm", new java.util.Date());
 			SimpleDateFormat cdf = new SimpleDateFormat("HH:mm");
 			try{
-				Date curdate = cdf.parse(curtime);
-				Log.d("SolatNotification", "In timer");
+				Date curdate = cdf.parse(curtime);				
 		    	String strimsak = settings.getString(waktu_imsak, "--");		    	
 				String strsubuh = settings.getString(waktu_subuh, "--");
 				String strsyuruk = settings.getString(waktu_syuruk, "--");
@@ -52,48 +51,40 @@ public class SolatService extends Service {
 				String strasar = settings.getString(waktu_asar, "--");
 				String strmaghrib = settings.getString(waktu_maghrib, "--");
 				String strisya = settings.getString(waktu_isya, "--");
-				Log.d("SolatNotification","Curwaktu:" + curwaktu);
 				if(curdate.equals(cdf.parseObject(strimsak)) && !curwaktu.equals("imsak")){
 					notifySolat("imsak");
 					updatewidget();
 					curwaktu="imsak";					
-					Log.d("SolatNotification", "waktu imsak");
 				}
 				else if(curdate.equals(cdf.parseObject(strsubuh)) && !curwaktu.equals("subuh")){
-					notifySolat("solat subuh");
+					notifySolat("subuh");
 					updatewidget();
 					curwaktu="subuh";
-					Log.d("SolatNotification", "waktu subuh");
 				}
 				else if(curdate.equals(cdf.parseObject(strsyuruk)) && !curwaktu.equals("syuruk")){
 					notifySolat("syuruk");
 					updatewidget();
 					curwaktu="syuruk";
-					Log.d("SolatNotification", "waktu syuruk");
 				}
 				else if(curdate.equals(cdf.parseObject(strzohor)) && !curwaktu.equals("zohor")){
-					notifySolat("solat zohor");
+					notifySolat("zohor");
 					updatewidget();
 					curwaktu="zohor";
-					Log.d("SolatNotification", "waktu zohor");
 				}
 				else if(curdate.equals(cdf.parseObject(strasar)) && !curwaktu.equals("asar")){
-					notifySolat("solat asar");
+					notifySolat("asar");
 					updatewidget();
 					curwaktu="asar";
-					Log.d("SolatNotification", "waktu asar");
 				}
 				else if(curdate.equals(cdf.parseObject(strmaghrib)) && !curwaktu.equals("maghrib")){
-					notifySolat("solat maghrib");
+					notifySolat("maghrib");
 					updatewidget();
 					curwaktu="maghrib";
-					Log.d("SolatNotification", "waktu maghrib");
 				}
 				else if(curdate.equals(cdf.parseObject(strisya)) && !curwaktu.equals("isya")){
-					notifySolat("solat isya");
+					notifySolat("isya");
 					updatewidget();
 					curwaktu = "isya";
-					Log.d("SolatNotification", "waktu isya");
 				}
 			}
 			catch(Exception e){
@@ -119,7 +110,6 @@ public class SolatService extends Service {
 
     @Override
     public void onCreate() {
-    	Log.d("SolatNotification", "Here now");
     	curwaktu = "Tiada";
         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
@@ -133,6 +123,7 @@ public class SolatService extends Service {
         Log.d("SolatNotification", "Received start id " + startId + ": " + intent);
         // We want this service to continue running until it is explicitly
         // stopped, so return sticky.
+        waitSolat.run();
         return START_STICKY;
     }
 
@@ -144,7 +135,6 @@ public class SolatService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {  
-    	Log.d("SolatNotification","run again");
     	waitSolat.run();
         return mBinder;
     }
@@ -161,7 +151,9 @@ public class SolatService extends Service {
         // Set the icon, scrolling text and timestamp
         Notification notification = new Notification(R.drawable.icon, text, System.currentTimeMillis());
         
-        notification.sound = Uri.parse("android.resource://com.abdullahsolutions.solatmalaysia/" + R.raw.azan);
+        if(Prefs.getAzan(this, waktu)){
+        	notification.sound = Uri.parse("android.resource://com.abdullahsolutions.solatmalaysia/" + R.raw.azan);
+        }
 
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,new Intent(this, waktusolat.class), 0);
@@ -177,8 +169,7 @@ public class SolatService extends Service {
     	ComponentName me=new ComponentName(this, SolatWidget.class);        			
 		AppWidgetManager mgr=AppWidgetManager.getInstance(this);
 		
-		mgr.updateAppWidget(me,SolatWidget.updateview(getApplicationContext()));
-    	Log.d("SolatNotification","In update");    	
+		mgr.updateAppWidget(me,SolatWidget.updateview(getApplicationContext()));   	
     }   
     
 }

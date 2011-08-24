@@ -20,6 +20,9 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RemoteViews;
@@ -85,9 +88,26 @@ public class waktusolat extends Activity implements OnClickListener {
 		doBindService();
 	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu){
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		switch(item.getItemId()){
+		case R.id.settings:
+			startActivity(new Intent(this,Prefs.class));
+			return true;
+		}
+		return false;
+	}
+	
 	private void doBindService() {
-		if(!servicebound){
-			Log.d(TAG,"Binding");
+		if(!servicebound){			
 		    bindService(new Intent(SolatService.class.getName()),connection,Context.BIND_AUTO_CREATE);
 			servicebound = true;
 		}

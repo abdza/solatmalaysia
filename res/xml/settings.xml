@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<CheckBoxPreference android:key="imsak" android:title="@string/imsak_setting_title" android:summary="@string/imsak_setting_summary" android:defaultValue="true"/>
+<CheckBoxPreference android:key="subuh" android:title="@string/subuh_setting_title" android:summary="@string/subuh_setting_summary" android:defaultValue="true"/>
+<CheckBoxPreference android:key="syuruk" android:title="@string/syuruk_setting_title" android:summary="@string/syuruk_setting_summary" android:defaultValue="true"/>
+<CheckBoxPreference android:key="zohor" android:title="@string/zohor_setting_title" android:summary="@string/zohor_setting_summary" android:defaultValue="true"/>
+<CheckBoxPreference android:key="asar" android:title="@string/asar_setting_title" android:summary="@string/asar_setting_summary" android:defaultValue="true"/>
+<CheckBoxPreference android:key="maghrib" android:title="@string/maghrib_setting_title" android:summary="@string/maghrib_setting_summary" android:defaultValue="true"/>
+<CheckBoxPreference android:key="isya" android:title="@string/isya_setting_title" android:summary="@string/isya_setting_summary" android:defaultValue="true"/>
+</PreferenceScreen>

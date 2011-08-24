@@ -16,6 +16,8 @@
 		<activity android:name="com.abdullahsolutions.solatmalaysia.ZonSolat"
 			android:label="@string/select_zone_title">
 		</activity>
+		<activity android:name="com.abdullahsolutions.solatmalaysia.Prefs" android:label="@string/settings_title">
+		</activity>
 		<service android:name="com.abdullahsolutions.solatmalaysia.SolatService"  
             android:exported="true" android:label="@string/app_name">
    			<intent-filter><action android:name="com.abdullahsolutions.solatmalaysia.SolatService"></action>
