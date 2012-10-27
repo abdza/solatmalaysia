@@ -98,5 +98,9 @@
 		<Button android:id="@+id/select_zone" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:text="@string/select_zone_title" 
 			android:background="@layout/buttonshape" android:paddingTop="12dip" android:paddingBottom="12dip"/>
+		<Button android:id="@+id/updatejadual" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="@string/updatejadualtitle" 
+			android:background="@layout/buttonshape" android:paddingTop="12dip" android:paddingBottom="12dip"
+			android:onClick="updatejadualsolat"/>
 	</TableLayout>
 </ScrollView>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Solat Malaysia</string>
+    <string name="updatejadualtitle">Kemaskini Waktu Solat</string>
     <string name="imsak_title">Imsak</string>
     <string name="subuh_title">Subuh</string>
     <string name="syuruk_title">Syuruk</string>

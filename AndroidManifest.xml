@@ -16,6 +16,9 @@
 		<activity android:name="com.abdullahsolutions.solatmalaysia.ZonSolat"
 			android:label="@string/select_zone_title">
 		</activity>
+		<activity android:name="com.abdullahsolutions.solatmalaysia.waktusolat.updatejadual"
+			android:label="@string/updatejadualtitle">
+		</activity>
 		<activity android:name="com.abdullahsolutions.solatmalaysia.Prefs" android:label="@string/settings_title">
 		</activity>
 		<service android:name="com.abdullahsolutions.solatmalaysia.SolatService"  

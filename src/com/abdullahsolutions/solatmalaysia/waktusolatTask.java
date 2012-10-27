@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,10 +32,12 @@ public class waktusolatTask implements Runnable {
 		try {
 			if (Thread.interrupted())
 				throw new InterruptedException();
-			
-			URL url = new URL("http://www.e-solat.gov.my/solat.php?"
-					+ "kod=" + waktu.getkodkawasan() + "&lang=Eng"
-					+ "&url=http://blog.abdullahsolutions.com");
+			Calendar c = Calendar.getInstance(); 
+			int month = c.get(Calendar.MONTH);
+
+			URL url = new URL("http://www.e-solat.gov.my/prayer_time.php?"
+					+ "zon=" + waktu.getkodkawasan() + "&LB=BI" 
+					+ "&year=&jenis=3&bulan=" + month);
 			con = (HttpURLConnection) url.openConnection();
 			con.setReadTimeout(1000);
 			con.setConnectTimeout(1000);
