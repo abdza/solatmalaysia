@@ -20,12 +20,7 @@
 			android:label="@string/updatejadualtitle">
 		</activity>
 		<activity android:name="com.abdullahsolutions.solatmalaysia.Prefs" android:label="@string/settings_title">
-		</activity>
-		<service android:name="com.abdullahsolutions.solatmalaysia.SolatService"  
-            android:exported="true" android:label="@string/app_name">
-   			<intent-filter><action android:name="com.abdullahsolutions.solatmalaysia.SolatService"></action>
-   			</intent-filter>
-		</service>		
+		</activity>			
 		<receiver android:name=".SolatWidget" android:label="@string/widget_name">
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
