@@ -102,7 +102,7 @@ public class waktusolat extends Activity implements OnClickListener {
 		updateview();
 	}
 	
-	private void setalarm(Context context, String nextwaktu) {
+	private void setalarm(Context context, String nextwaktu,String waktu) {
 		AlarmManager alarmMgr = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
 		Intent intent = new Intent(context, Azan.class);
@@ -113,8 +113,12 @@ public class waktusolat extends Activity implements OnClickListener {
 		String[] nwaktu = nextwaktu.split(":");
 		time.set(Calendar.HOUR_OF_DAY, Integer.valueOf(nwaktu[0]));
 		time.set(Calendar.MINUTE, Integer.valueOf(nwaktu[1]));
+		if(waktu=="isya" && time.get(Calendar.PM)==1){
+			time.add(Calendar.DAY_OF_YEAR, 1);
+		}
 		alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
 				pendingIntent);
+		Log.d(TAG,"Azan set at " + time.toString());
 	}
 
 	private void findViews() {
@@ -167,7 +171,7 @@ public class waktusolat extends Activity implements OnClickListener {
 						|| (curdate.after(cdf.parse(strimsak)) && curdate
 								.before(cdf.parse(strsubuh)))) {
 					highlight(R.id.imsak_title, imsak_time, true);
-					setalarm(this.getApplicationContext(),strsubuh);
+					setalarm(this.getApplicationContext(),strsubuh,"imsak");
 				} else {
 					highlight(R.id.imsak_title, imsak_time, false);
 				}
@@ -176,7 +180,7 @@ public class waktusolat extends Activity implements OnClickListener {
 						|| (curdate.after(cdf.parse(strsubuh)) && curdate
 								.before(cdf.parse(strsyuruk)))) {
 					highlight(R.id.subuh_title, subuh_time, true);
-					setalarm(this.getApplicationContext(),strsyuruk);
+					setalarm(this.getApplicationContext(),strsyuruk,"subuh");
 				} else {
 					highlight(R.id.subuh_title, subuh_time, false);
 				}
@@ -185,7 +189,7 @@ public class waktusolat extends Activity implements OnClickListener {
 						|| (curdate.after(cdf.parse(strsyuruk)) && curdate
 								.before(cdf.parse(strzohor)))) {
 					highlight(R.id.syuruk_title, syuruk_time, true);
-					setalarm(this.getApplicationContext(),strzohor);
+					setalarm(this.getApplicationContext(),strzohor,"syuruk");
 				} else {
 					highlight(R.id.syuruk_title, syuruk_time, false);
 				}
@@ -194,7 +198,7 @@ public class waktusolat extends Activity implements OnClickListener {
 						|| (curdate.after(cdf.parse(strzohor)) && curdate
 								.before(cdf.parse(strasar)))) {
 					highlight(R.id.zohor_title, zohor_time, true);
-					setalarm(this.getApplicationContext(),strasar);
+					setalarm(this.getApplicationContext(),strasar,"zohor");
 				} else {
 					highlight(R.id.zohor_title, zohor_time, false);
 				}
@@ -203,7 +207,7 @@ public class waktusolat extends Activity implements OnClickListener {
 						|| (curdate.after(cdf.parse(strasar)) && curdate
 								.before(cdf.parse(strmaghrib)))) {
 					highlight(R.id.asar_title, asar_time, true);
-					setalarm(this.getApplicationContext(),strmaghrib);
+					setalarm(this.getApplicationContext(),strmaghrib,"asar");
 				} else {
 					highlight(R.id.asar_title, asar_time, false);
 				}
@@ -212,7 +216,7 @@ public class waktusolat extends Activity implements OnClickListener {
 						|| (curdate.after(cdf.parse(strmaghrib)) && curdate
 								.before(cdf.parse(strisya)))) {
 					highlight(R.id.maghrib_title, maghrib_time, true);
-					setalarm(this.getApplicationContext(),strmaghrib);
+					setalarm(this.getApplicationContext(),strisya,"maghrib");
 				} else {
 					highlight(R.id.maghrib_title, maghrib_time, false);
 				}
@@ -220,7 +224,8 @@ public class waktusolat extends Activity implements OnClickListener {
 				if (curdate.equals(cdf.parseObject(strisya))
 						|| curdate.after(cdf.parse(strisya))
 						|| curdate.before(cdf.parse(strimsak))) {
-					highlight(R.id.isya_title, isya_time, true);					
+					highlight(R.id.isya_title, isya_time, true);	
+					setalarm(this.getApplicationContext(),strimsak,"isya");
 				} else {
 					highlight(R.id.isya_title, isya_time, false);
 				}

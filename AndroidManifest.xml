@@ -27,5 +27,6 @@
 			</intent-filter>
 			<meta-data android:name="android.appwidget.provider" android:resource="@xml/widget"/>
 		</receiver>
+		<receiver android:name=".Azan" android:enabled="true"></receiver>
 	</application>
 </manifest>

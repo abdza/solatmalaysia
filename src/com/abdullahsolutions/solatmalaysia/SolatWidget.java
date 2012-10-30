@@ -39,7 +39,7 @@ public class SolatWidget extends AppWidgetProvider {
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 	}
 
-	static void setalarm(Context context, String nextwaktu) {
+	static void setalarm(Context context, String nextwaktu, String waktu) {
 		AlarmManager alarmMgr = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
 		Intent intent = new Intent(context, Azan.class);
@@ -50,6 +50,9 @@ public class SolatWidget extends AppWidgetProvider {
 		String[] nwaktu = nextwaktu.split(":");
 		time.set(Calendar.HOUR_OF_DAY, Integer.valueOf(nwaktu[0]));
 		time.set(Calendar.MINUTE, Integer.valueOf(nwaktu[1]));
+		if(waktu=="isya" && time.get(Calendar.PM)==1){
+			time.add(Calendar.DAY_OF_YEAR, 1);
+		}
 		alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
 				pendingIntent);
 	}
@@ -91,7 +94,7 @@ public class SolatWidget extends AppWidgetProvider {
 								.before(cdf.parse(strsubuh)))) {
 					updateViews.setInt(R.id.imsakline, "setBackgroundResource",
 							R.color.hightlight);
-					setalarm(context, strsubuh);
+					setalarm(context, strsubuh,"imsak");
 				} else {
 					updateViews.setInt(R.id.imsakline, "setBackgroundResource",
 							0);
@@ -103,7 +106,7 @@ public class SolatWidget extends AppWidgetProvider {
 								.before(cdf.parse(strsyuruk)))) {
 					updateViews.setInt(R.id.subuhline, "setBackgroundResource",
 							R.color.hightlight);
-					setalarm(context, strsyuruk);
+					setalarm(context, strsyuruk,"subuh");
 				} else {
 					updateViews.setInt(R.id.subuhline, "setBackgroundResource",
 							0);
@@ -115,7 +118,7 @@ public class SolatWidget extends AppWidgetProvider {
 								.before(cdf.parse(strzohor)))) {
 					updateViews.setInt(R.id.syurukline,
 							"setBackgroundResource", R.color.hightlight);
-					setalarm(context,strzohor);
+					setalarm(context,strzohor,"syuruk");
 				} else {
 					updateViews.setInt(R.id.syurukline,
 							"setBackgroundResource", 0);
@@ -127,7 +130,7 @@ public class SolatWidget extends AppWidgetProvider {
 								.before(cdf.parse(strasar)))) {
 					updateViews.setInt(R.id.zohorline, "setBackgroundResource",
 							R.color.hightlight);
-					setalarm(context,strasar);
+					setalarm(context,strasar,"zohor");
 				} else {
 					updateViews.setInt(R.id.zohorline, "setBackgroundResource",
 							0);
@@ -139,7 +142,7 @@ public class SolatWidget extends AppWidgetProvider {
 								.before(cdf.parse(strmaghrib)))) {
 					updateViews.setInt(R.id.asarline, "setBackgroundResource",
 							R.color.hightlight);
-					setalarm(context,strmaghrib);
+					setalarm(context,strmaghrib,"asar");
 				} else {
 					updateViews.setInt(R.id.asarline, "setBackgroundResource",
 							0);
@@ -151,7 +154,7 @@ public class SolatWidget extends AppWidgetProvider {
 								.before(cdf.parse(strisya)))) {
 					updateViews.setInt(R.id.maghribline,
 							"setBackgroundResource", R.color.hightlight);
-					setalarm(context,strisya);
+					setalarm(context,strisya,"maghrib");
 				} else {
 					updateViews.setInt(R.id.maghribline,
 							"setBackgroundResource", 0);
@@ -166,6 +169,7 @@ public class SolatWidget extends AppWidgetProvider {
 						|| curdate.before(cdf.parse(strimsak))) {
 					updateViews.setInt(R.id.isyaline, "setBackgroundResource",
 							R.color.hightlight);
+					setalarm(context,strimsak,"isya");
 				} else {
 					updateViews.setInt(R.id.isyaline, "setBackgroundResource",
 							0);
