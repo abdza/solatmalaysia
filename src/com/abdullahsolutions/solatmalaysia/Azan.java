@@ -8,7 +8,9 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,15 +31,24 @@ public class Azan extends BroadcastReceiver {
 
 	private int NOTIFICATION = R.string.solatnotification;
 
-	private void setalarm(Context context, Calendar time) {
+	static void setalarm(Context context, String nextwaktu, String waktu) {
 		AlarmManager alarmMgr = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
 		Intent intent = new Intent(context, Azan.class);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
-				intent, 0);		
+				intent, 0);
+		Calendar time = Calendar.getInstance();
+		time.setTimeInMillis(System.currentTimeMillis());
+		String[] nwaktu = nextwaktu.split(":");
+		Log.d(TAG,"AM_PM PM " + time.get(Calendar.AM_PM) + " " + time.get(Calendar.PM));
+		if(waktu=="isya" && time.get(Calendar.AM_PM)==1){
+			time.add(Calendar.DATE, 1);
+		}
+		time.set(Calendar.HOUR_OF_DAY, Integer.valueOf(nwaktu[0]));
+		time.set(Calendar.MINUTE, Integer.valueOf(nwaktu[1]));		
 		alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
 				pendingIntent);
-		Log.d(TAG,"Azan set at " + time.toString());
+		Log.d(TAG,"Azan set by Azan at " + time.toString());
 	}
 
 	@Override
@@ -113,16 +124,15 @@ public class Azan extends BroadcastReceiver {
 		} finally {
 			solatdb.close();
 		}
-		Log.d(TAG,"Next waktu " + nextwaktu);
-		Calendar time = Calendar.getInstance();
-		time.setTimeInMillis(System.currentTimeMillis());
-		String[] nwaktu = nextwaktu.split(":");
-		time.set(Calendar.HOUR_OF_DAY, Integer.valueOf(nwaktu[0]));
-		time.set(Calendar.MINUTE, Integer.valueOf(nwaktu[1]));
-		if(waktu=="isya" && time.get(Calendar.PM)==1){
-			time.add(Calendar.DAY_OF_YEAR, 1);
-		}
-		setalarm(context, time);
+		
+		ComponentName me = new ComponentName(context,
+				SolatWidget.class);
+		AppWidgetManager mgr = AppWidgetManager.getInstance(context);
+
+		mgr.updateAppWidget(me,
+				SolatWidget.updateview(context));
+				
+		setalarm(context, nextwaktu, waktu);
 		NotificationManager mNM = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		CharSequence text = "Telah masuk waktu " + waktu;
 		// Set the icon, scrolling text and timestamp

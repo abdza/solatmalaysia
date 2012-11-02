@@ -111,14 +111,15 @@ public class waktusolat extends Activity implements OnClickListener {
 		Calendar time = Calendar.getInstance();
 		time.setTimeInMillis(System.currentTimeMillis());
 		String[] nwaktu = nextwaktu.split(":");
-		time.set(Calendar.HOUR_OF_DAY, Integer.valueOf(nwaktu[0]));
-		time.set(Calendar.MINUTE, Integer.valueOf(nwaktu[1]));
-		if(waktu=="isya" && time.get(Calendar.PM)==1){
-			time.add(Calendar.DAY_OF_YEAR, 1);
+		Log.d(TAG,"AM_PM PM " + time.get(Calendar.PM) + " " + time.get(Calendar.PM));
+		if(waktu=="isya" && time.get(Calendar.AM_PM)==1){
+			time.add(Calendar.DATE, 1);
 		}
+		time.set(Calendar.HOUR_OF_DAY, Integer.valueOf(nwaktu[0]));
+		time.set(Calendar.MINUTE, Integer.valueOf(nwaktu[1]));		
 		alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
 				pendingIntent);
-		Log.d(TAG,"Azan set at " + time.toString());
+		Log.d(TAG,"Azan set by waktusolat at " + time.toString());
 	}
 
 	private void findViews() {
