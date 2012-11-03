@@ -4,37 +4,87 @@ android:id="@+id/solatwidget"
 android:orientation="vertical"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
-android:background="@drawable/widget_bg"
+android:background="@layout/widgetbg"
+android:gravity="center"
+android:padding="5px"
 >
-    <TextView android:text="Tempat" android:id="@+id/tempat" android:textColor="@color/black" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_gravity="center_horizontal"></TextView>
-    <TextView android:id="@+id/tarikh" android:text="Tarikh" android:textColor="@color/black" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="center_horizontal"></TextView>
+    <TextView android:text="Tempat" 
+        android:id="@+id/tempat" 
+        style="@style/Widget"
+        ></TextView>
+    <TextView android:id="@+id/tarikh" 
+        android:text="Tarikh" 
+        style="@style/Widget"
+        ></TextView>
     <LinearLayout android:layout_width="fill_parent" android:id="@+id/imsakline" android:layout_height="wrap_content">
-        <TextView android:id="@+id/textView1" android:text="Imsak" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right" android:layout_weight="1"></TextView>
-        <TextView android:id="@+id/imsak" android:text="Waktu Imsak" android:textColor="@color/black"  android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"></TextView>
+        <TextView android:id="@+id/textView1" 
+            android:text="Imsak" 
+            style="@style/Widget.Title"
+            ></TextView>
+        <TextView android:id="@+id/imsak" 
+            android:text="Waktu Imsak" 
+			style="@style/Widget.Time"            
+        ></TextView>
     </LinearLayout>
     <LinearLayout android:layout_width="fill_parent" android:id="@+id/subuhline" android:layout_height="wrap_content">
-        <TextView android:id="@+id/textView3" android:text="Subuh" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right" android:layout_weight="1"></TextView>
-        <TextView android:id="@+id/subuh" android:text="Waktu Subuh" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"></TextView>
+        <TextView android:id="@+id/textView3" 
+            android:text="Subuh" 
+            style="@style/Widget.Title"
+            ></TextView>
+        <TextView android:id="@+id/subuh" 
+            android:text="Waktu Subuh" 
+            style="@style/Widget.Time"
+            ></TextView>
     </LinearLayout>
     <LinearLayout android:layout_width="fill_parent" android:id="@+id/syurukline" android:layout_height="wrap_content">
-        <TextView android:id="@+id/textView5" android:text="Syuruk" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right" android:layout_weight="1"></TextView>
-        <TextView android:id="@+id/syuruk" android:text="Waktu Syuruk" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"></TextView>
+        <TextView android:id="@+id/textView5" 
+            android:text="Syuruk"
+			style="@style/Widget.Title"
+			></TextView>
+        <TextView android:id="@+id/syuruk" 
+            android:text="Waktu Syuruk" 
+            style="@style/Widget.Time"
+            ></TextView>
     </LinearLayout>
     <LinearLayout android:layout_width="fill_parent" android:id="@+id/zohorline" android:layout_height="wrap_content">
-        <TextView android:id="@+id/textView7" android:text="Zohor" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right" android:layout_weight="1"></TextView>
-        <TextView android:id="@+id/zohor" android:text="Waktu Zohor" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"></TextView>
+        <TextView android:id="@+id/textView7" 
+            android:text="Zohor"
+            style="@style/Widget.Title"
+            ></TextView>
+        <TextView android:id="@+id/zohor" 
+            android:text="Waktu Zohor" 
+            style="@style/Widget.Time"
+            ></TextView>
     </LinearLayout>
     <LinearLayout android:layout_width="fill_parent" android:id="@+id/asarline" android:layout_height="wrap_content">
-        <TextView android:id="@+id/textView9" android:text="Asar" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right" android:layout_weight="1"></TextView>
-        <TextView android:id="@+id/asar" android:text="Waktu Asar" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"></TextView>
+        <TextView android:id="@+id/textView9" 
+            android:text="Asar"
+			style="@style/Widget.Title"
+			></TextView>
+        <TextView android:id="@+id/asar" 
+            android:text="Waktu Asar" 
+            style="@style/Widget.Time"
+            ></TextView>
     </LinearLayout>
     <LinearLayout android:layout_width="fill_parent" android:id="@+id/maghribline" android:layout_height="wrap_content">
-        <TextView android:id="@+id/textView11" android:text="Maghrib" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right" android:layout_weight="1"></TextView>
-        <TextView android:id="@+id/maghrib" android:text="Waktu Maghrib" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"></TextView>
+        <TextView android:id="@+id/textView11" 
+            android:text="Maghrib" 
+            style="@style/Widget.Title"
+            ></TextView>
+        <TextView android:id="@+id/maghrib" 
+            android:text="Waktu Maghrib" 
+            style="@style/Widget.Time"
+            ></TextView>
     </LinearLayout>
     <LinearLayout android:layout_width="fill_parent" android:id="@+id/isyaline" android:layout_height="wrap_content">
-        <TextView android:id="@+id/textView13" android:text="Isya'" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right" android:layout_weight="1"></TextView>
-        <TextView android:id="@+id/isya" android:text="Waktu Isya'" android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"></TextView>
+        <TextView android:id="@+id/textView13" 
+            android:text="Isya'" 
+			style="@style/Widget.Title"
+			></TextView>
+        <TextView android:id="@+id/isya" 
+            android:text="Waktu Isya'" 
+            style="@style/Widget.Time"
+            ></TextView>
     </LinearLayout>
 
 </LinearLayout>

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class ZonSolat extends Activity implements OnClickListener {
+public class ZonSolat extends Activity {
 
 	private static final String TAG = "ZonSolat";
 
@@ -94,25 +94,7 @@ public class ZonSolat extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.zon_solat);
-
-		View selectNegeriButton = findViewById(R.id.select_negeri);
-		selectNegeriButton.setOnClickListener(this);
-
-		View selectKawasanButton = findViewById(R.id.select_kawasan);
-		selectKawasanButton.setOnClickListener(this);
-
-	}
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.select_negeri:
-			openNegeriDialog();
-			break;
-		case R.id.select_kawasan:
-			openKawasanDialog();
-			break;
-		}
+		openNegeriDialog();
 	}
 
 	private void openNegeriDialog() {
@@ -126,9 +108,8 @@ public class ZonSolat extends Activity implements OnClickListener {
 
 	private void selectnegeri(int i) {
 		Log.d(TAG, "selected negeri " + i);
-		getPreferences(MODE_PRIVATE).edit().putLong("negeri", i).commit();
-		final Button button = (Button) findViewById(R.id.select_negeri);
-		button.setText(negeri[i]);
+		getPreferences(MODE_PRIVATE).edit().putLong("negeri", i).commit();		
+		openKawasanDialog();
 	}
 
 	private void openKawasanDialog() {
