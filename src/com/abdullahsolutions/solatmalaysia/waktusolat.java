@@ -145,7 +145,7 @@ public class waktusolat extends Activity implements OnClickListener {
 			String curtime = (String) android.text.format.DateFormat.format(
 					"kk:mm", new java.util.Date());
 			String curday = (String) android.text.format.DateFormat.format(
-					"dd-MM-yyyy", new java.util.Date());
+					"dd-MM-yyyy", new java.util.Date());			
 			solatdb = new SolatDB(this.getApplicationContext());
 			SQLiteDatabase db = solatdb.getReadableDatabase();
 			Cursor cursorwaktu = db
@@ -373,9 +373,9 @@ public class waktusolat extends Activity implements OnClickListener {
 				int month = c.get(Calendar.MONTH) + 1;
 				int year = c.get(Calendar.YEAR);
 
-				URL url = new URL("http://www.e-solat.gov.my/prayer_time.php?"
-						+ "zon=" + getkodkawasan() + "&LB=BI" + "&year=" + year
-						+ "&jenis=3&bulan=" + month);
+				URL url = new URL("http://www.e-solat.gov.my/muatturun.php?"
+						+ "zone=" + getkodkawasan() + "&year=" + year
+						+ "&jenis=year&lang=my&bulan=" + month);
 				con = (HttpURLConnection) url.openConnection();
 				con.setReadTimeout(1000);
 				con.setConnectTimeout(1000);
@@ -394,19 +394,19 @@ public class waktusolat extends Activity implements OnClickListener {
 				}
 				String htmlTextStr = Html.fromHtml(total).toString();
 				Pattern waktupattern = Pattern
-						.compile("(\\d+-\\d+-\\d+)\\s+(\\w+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)");
+						.compile("(\\d+)\\s+(\\w+)\\s+(\\w+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)");
 				Matcher waktumatch = waktupattern.matcher(htmlTextStr);
 				int curpos = 0;
-				while (waktumatch.find()) {
+				while (waktumatch.find()) {					
 					waktuwaktu[curpos] = new String[8];
-					waktuwaktu[curpos][0] = waktumatch.group(1);
-					waktuwaktu[curpos][1] = waktumatch.group(3);
-					waktuwaktu[curpos][2] = waktumatch.group(4);
-					waktuwaktu[curpos][3] = waktumatch.group(5);
-					waktuwaktu[curpos][4] = waktumatch.group(6);
-					waktuwaktu[curpos][5] = waktumatch.group(7);
-					waktuwaktu[curpos][6] = waktumatch.group(8);
-					waktuwaktu[curpos][7] = waktumatch.group(9);
+					waktuwaktu[curpos][0] = waktumatch.group(1) + "-" + String.format("%02d",month) + "-" + year;					
+					waktuwaktu[curpos][1] = waktumatch.group(4);
+					waktuwaktu[curpos][2] = waktumatch.group(5);
+					waktuwaktu[curpos][3] = waktumatch.group(6);
+					waktuwaktu[curpos][4] = waktumatch.group(7);
+					waktuwaktu[curpos][5] = waktumatch.group(8);
+					waktuwaktu[curpos][6] = waktumatch.group(9);
+					waktuwaktu[curpos][7] = waktumatch.group(10);
 					curpos++;
 				}
 
@@ -487,9 +487,9 @@ public class waktusolat extends Activity implements OnClickListener {
 					year += 1;
 				}
 
-				URL url = new URL("http://www.e-solat.gov.my/prayer_time.php?"
-						+ "zon=" + getkodkawasan() + "&LB=BI" + "&year=" + year
-						+ "&jenis=3&bulan=" + month);
+				URL url = new URL("http://www.e-solat.gov.my/muatturun.php?"
+						+ "zone=" + getkodkawasan() + "&year=" + year
+						+ "&jenis=year&lang=my&bulan=" + month);
 				con = (HttpURLConnection) url.openConnection();
 				con.setReadTimeout(1000);
 				con.setConnectTimeout(1000);
@@ -508,19 +508,19 @@ public class waktusolat extends Activity implements OnClickListener {
 				}
 				String htmlTextStr = Html.fromHtml(total).toString();
 				Pattern waktupattern = Pattern
-						.compile("(\\d+-\\d+-\\d+)\\s+(\\w+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)");
+						.compile("(\\d+)\\s+(\\w+)\\s+(\\w+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)");
 				Matcher waktumatch = waktupattern.matcher(htmlTextStr);
 				int curpos = 0;
 				while (waktumatch.find()) {
 					waktuwaktu[curpos] = new String[8];
-					waktuwaktu[curpos][0] = waktumatch.group(1);
-					waktuwaktu[curpos][1] = waktumatch.group(3);
-					waktuwaktu[curpos][2] = waktumatch.group(4);
-					waktuwaktu[curpos][3] = waktumatch.group(5);
-					waktuwaktu[curpos][4] = waktumatch.group(6);
-					waktuwaktu[curpos][5] = waktumatch.group(7);
-					waktuwaktu[curpos][6] = waktumatch.group(8);
-					waktuwaktu[curpos][7] = waktumatch.group(9);
+					waktuwaktu[curpos][0] = waktumatch.group(1) + "-" + String.format("%02d",month) + "-" + year;					
+					waktuwaktu[curpos][1] = waktumatch.group(4);
+					waktuwaktu[curpos][2] = waktumatch.group(5);
+					waktuwaktu[curpos][3] = waktumatch.group(6);
+					waktuwaktu[curpos][4] = waktumatch.group(7);
+					waktuwaktu[curpos][5] = waktumatch.group(8);
+					waktuwaktu[curpos][6] = waktumatch.group(9);
+					waktuwaktu[curpos][7] = waktumatch.group(10);
 					curpos++;
 				}
 			} catch (MalformedURLException e) {
