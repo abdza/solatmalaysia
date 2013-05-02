@@ -132,7 +132,10 @@ public class Azan extends BroadcastReceiver {
 		mgr.updateAppWidget(me,
 				SolatWidget.updateview(context));
 				
-		setalarm(context, nextwaktu, waktu);
+		if(settings.getString("curwaktu","tiada")!=waktu){
+			settings.edit().putString("curwaktu",waktu).commit();
+			setalarm(context, nextwaktu, waktu);
+		}
 		NotificationManager mNM = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		CharSequence text = "Telah masuk waktu " + waktu;
 		// Set the icon, scrolling text and timestamp

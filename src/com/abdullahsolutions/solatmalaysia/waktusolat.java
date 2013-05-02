@@ -12,8 +12,6 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.abdullahsolutions.solatmalaysia.R;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -168,11 +166,15 @@ public class waktusolat extends Activity implements OnClickListener {
 				Log.d(TAG, cursorwaktu.getString(8) + "::::" + getkodkawasan());
 				solatdb.close();
 				imsak_time.setText(strimsak);
+				String nextwaktu="";
+				String waktu="";
 				if (curdate.equals(cdf.parseObject(strimsak))
 						|| (curdate.after(cdf.parse(strimsak)) && curdate
 								.before(cdf.parse(strsubuh)))) {
 					highlight(R.id.imsak_title, imsak_time, true);
-					setalarm(this.getApplicationContext(),strsubuh,"imsak");
+					//setalarm(this.getApplicationContext(),strsubuh,"imsak");
+					nextwaktu=strsubuh;
+					waktu="imsak";
 				} else {
 					highlight(R.id.imsak_title, imsak_time, false);
 				}
@@ -181,7 +183,9 @@ public class waktusolat extends Activity implements OnClickListener {
 						|| (curdate.after(cdf.parse(strsubuh)) && curdate
 								.before(cdf.parse(strsyuruk)))) {
 					highlight(R.id.subuh_title, subuh_time, true);
-					setalarm(this.getApplicationContext(),strsyuruk,"subuh");
+					//setalarm(this.getApplicationContext(),strsyuruk,"subuh");
+					nextwaktu=strsyuruk;
+					waktu="subuh";
 				} else {
 					highlight(R.id.subuh_title, subuh_time, false);
 				}
@@ -190,7 +194,9 @@ public class waktusolat extends Activity implements OnClickListener {
 						|| (curdate.after(cdf.parse(strsyuruk)) && curdate
 								.before(cdf.parse(strzohor)))) {
 					highlight(R.id.syuruk_title, syuruk_time, true);
-					setalarm(this.getApplicationContext(),strzohor,"syuruk");
+					//setalarm(this.getApplicationContext(),strzohor,"syuruk");
+					nextwaktu=strzohor;
+					waktu="syuruk";
 				} else {
 					highlight(R.id.syuruk_title, syuruk_time, false);
 				}
@@ -199,7 +205,9 @@ public class waktusolat extends Activity implements OnClickListener {
 						|| (curdate.after(cdf.parse(strzohor)) && curdate
 								.before(cdf.parse(strasar)))) {
 					highlight(R.id.zohor_title, zohor_time, true);
-					setalarm(this.getApplicationContext(),strasar,"zohor");
+					//setalarm(this.getApplicationContext(),strasar,"zohor");
+					nextwaktu=strasar;
+					waktu="zohor";
 				} else {
 					highlight(R.id.zohor_title, zohor_time, false);
 				}
@@ -208,7 +216,9 @@ public class waktusolat extends Activity implements OnClickListener {
 						|| (curdate.after(cdf.parse(strasar)) && curdate
 								.before(cdf.parse(strmaghrib)))) {
 					highlight(R.id.asar_title, asar_time, true);
-					setalarm(this.getApplicationContext(),strmaghrib,"asar");
+					//setalarm(this.getApplicationContext(),strmaghrib,"asar");
+					nextwaktu=strmaghrib;
+					waktu="asar";
 				} else {
 					highlight(R.id.asar_title, asar_time, false);
 				}
@@ -217,7 +227,9 @@ public class waktusolat extends Activity implements OnClickListener {
 						|| (curdate.after(cdf.parse(strmaghrib)) && curdate
 								.before(cdf.parse(strisya)))) {
 					highlight(R.id.maghrib_title, maghrib_time, true);
-					setalarm(this.getApplicationContext(),strisya,"maghrib");
+					//setalarm(this.getApplicationContext(),strisya,"maghrib");
+					nextwaktu=strisya;
+					waktu="maghrib";
 				} else {
 					highlight(R.id.maghrib_title, maghrib_time, false);
 				}
@@ -226,11 +238,17 @@ public class waktusolat extends Activity implements OnClickListener {
 						|| curdate.after(cdf.parse(strisya))
 						|| curdate.before(cdf.parse(strimsak))) {
 					highlight(R.id.isya_title, isya_time, true);	
-					setalarm(this.getApplicationContext(),strimsak,"isya");
+					//setalarm(this.getApplicationContext(),strimsak,"isya");
+					nextwaktu=strimsak;
+					waktu="isya";
 				} else {
 					highlight(R.id.isya_title, isya_time, false);
 				}
-				Calendar c = Calendar.getInstance();
+				if(settings.getString("curwaktu","tiada")!=waktu){
+					settings.edit().putString("curwaktu",waktu).commit();
+					setalarm(this.getApplicationContext(), nextwaktu, waktu);
+				}
+				/* Calendar c = Calendar.getInstance();
 				int month = c.get(Calendar.MONTH) + 1;
 				int year = c.get(Calendar.YEAR);
 				solatdb = new SolatDB(this.getApplicationContext());
@@ -253,9 +271,10 @@ public class waktusolat extends Activity implements OnClickListener {
 				}
 				else{
 					solatdb.close();
-				}
+				} */
 				
 			} else {
+				solatdb.close();
 				imsak_time.setText("Updating...");
 				subuh_time.setText("Updating...");
 				syuruk_time.setText("Updating...");
@@ -288,7 +307,6 @@ public class waktusolat extends Activity implements OnClickListener {
 		return settings.getString("kod_kawasan", "sgr03");
 	}
 
-	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.select_zone:
@@ -373,9 +391,8 @@ public class waktusolat extends Activity implements OnClickListener {
 				int month = c.get(Calendar.MONTH) + 1;
 				int year = c.get(Calendar.YEAR);
 
-				URL url = new URL("http://www.e-solat.gov.my/muatturun.php?"
-						+ "zone=" + getkodkawasan() + "&year=" + year
-						+ "&jenis=year&lang=my&bulan=" + month);
+				URL url = new URL("http://abdullahsolutions.com/esolat/esolat.php?"
+						+ "zon=" + getkodkawasan() + "&tahun=" + year + "&bulan=" + month);
 				con = (HttpURLConnection) url.openConnection();
 				con.setReadTimeout(1000);
 				con.setConnectTimeout(1000);
@@ -393,20 +410,21 @@ public class waktusolat extends Activity implements OnClickListener {
 					total += payload;
 				}
 				String htmlTextStr = Html.fromHtml(total).toString();
+				Log.d(TAG,"Found: " + htmlTextStr);
 				Pattern waktupattern = Pattern
-						.compile("(\\d+)\\s+(\\w+)\\s+(\\w+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)");
+						.compile("(\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)");
 				Matcher waktumatch = waktupattern.matcher(htmlTextStr);
 				int curpos = 0;
 				while (waktumatch.find()) {					
 					waktuwaktu[curpos] = new String[8];
 					waktuwaktu[curpos][0] = waktumatch.group(1) + "-" + String.format("%02d",month) + "-" + year;					
-					waktuwaktu[curpos][1] = waktumatch.group(4);
-					waktuwaktu[curpos][2] = waktumatch.group(5);
-					waktuwaktu[curpos][3] = waktumatch.group(6);
-					waktuwaktu[curpos][4] = waktumatch.group(7);
-					waktuwaktu[curpos][5] = waktumatch.group(8);
-					waktuwaktu[curpos][6] = waktumatch.group(9);
-					waktuwaktu[curpos][7] = waktumatch.group(10);
+					waktuwaktu[curpos][1] = waktumatch.group(2);
+					waktuwaktu[curpos][2] = waktumatch.group(3);
+					waktuwaktu[curpos][3] = waktumatch.group(4);
+					waktuwaktu[curpos][4] = waktumatch.group(5);
+					waktuwaktu[curpos][5] = waktumatch.group(6);
+					waktuwaktu[curpos][6] = waktumatch.group(7);
+					waktuwaktu[curpos][7] = waktumatch.group(8);
 					curpos++;
 				}
 
@@ -450,13 +468,10 @@ public class waktusolat extends Activity implements OnClickListener {
 				toast = Toast.makeText(getApplicationContext(),
 						"Jadual solat telah dikemaskini", Toast.LENGTH_SHORT);
 				toast.show();
-				ComponentName me = new ComponentName(this.context,
-						SolatWidget.class);
-				AppWidgetManager mgr = AppWidgetManager
-						.getInstance(this.context);
+				ComponentName me = new ComponentName(this.context, SolatWidget.class);
+				AppWidgetManager mgr = AppWidgetManager.getInstance(this.context);
 
-				mgr.updateAppWidget(me,
-						SolatWidget.updateview(getApplicationContext()));
+				mgr.updateAppWidget(me, SolatWidget.updateview(getApplicationContext()));
 				updateview();
 			}
 		}
@@ -487,9 +502,8 @@ public class waktusolat extends Activity implements OnClickListener {
 					year += 1;
 				}
 
-				URL url = new URL("http://www.e-solat.gov.my/muatturun.php?"
-						+ "zone=" + getkodkawasan() + "&year=" + year
-						+ "&jenis=year&lang=my&bulan=" + month);
+				URL url = new URL("http://abdullahsolutions.com/esolat/esolat.php?"
+						+ "zon=" + getkodkawasan() + "&tahun=" + year + "&bulan=" + month);
 				con = (HttpURLConnection) url.openConnection();
 				con.setReadTimeout(1000);
 				con.setConnectTimeout(1000);
@@ -508,19 +522,19 @@ public class waktusolat extends Activity implements OnClickListener {
 				}
 				String htmlTextStr = Html.fromHtml(total).toString();
 				Pattern waktupattern = Pattern
-						.compile("(\\d+)\\s+(\\w+)\\s+(\\w+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)");
+						.compile("(\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)\\s+(\\d+:\\d+)");
 				Matcher waktumatch = waktupattern.matcher(htmlTextStr);
 				int curpos = 0;
 				while (waktumatch.find()) {
 					waktuwaktu[curpos] = new String[8];
 					waktuwaktu[curpos][0] = waktumatch.group(1) + "-" + String.format("%02d",month) + "-" + year;					
-					waktuwaktu[curpos][1] = waktumatch.group(4);
-					waktuwaktu[curpos][2] = waktumatch.group(5);
-					waktuwaktu[curpos][3] = waktumatch.group(6);
-					waktuwaktu[curpos][4] = waktumatch.group(7);
-					waktuwaktu[curpos][5] = waktumatch.group(8);
-					waktuwaktu[curpos][6] = waktumatch.group(9);
-					waktuwaktu[curpos][7] = waktumatch.group(10);
+					waktuwaktu[curpos][1] = waktumatch.group(2);
+					waktuwaktu[curpos][2] = waktumatch.group(3);
+					waktuwaktu[curpos][3] = waktumatch.group(4);
+					waktuwaktu[curpos][4] = waktumatch.group(5);
+					waktuwaktu[curpos][5] = waktumatch.group(6);
+					waktuwaktu[curpos][6] = waktumatch.group(7);
+					waktuwaktu[curpos][7] = waktumatch.group(8);
 					curpos++;
 				}
 			} catch (MalformedURLException e) {

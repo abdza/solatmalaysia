@@ -1,6 +1,5 @@
 package com.abdullahsolutions.solatmalaysia;
 
-import com.abdullahsolutions.solatmalaysia.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
